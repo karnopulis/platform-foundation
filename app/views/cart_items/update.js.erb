@@ -1,0 +1,2 @@
+$(".cart-text").html("<%= escape_javascript(render 'layouts/cart_text') %>")
+$(".c_row<%= params[:id] %>").html("<%= escape_javascript(render 'cart_items/cart_row', :ci => @cart_item) %>")

@@ -1,0 +1,49 @@
+<div class="row">
+
+    <div class="column small-12 medium-3"
+        <div class="card " >
+                              <div class="card-divider ">
+                                <center><%= @product.title%> </center>
+                              </div>
+                                <center>
+                                    
+                                    
+                                  <p class =" center "><b><%= @product.variants.first.sku %></b></p>
+                                </center>
+                                <div class="card-divider">
+                                 <% @product.full_characteristics.each do |ch| %>
+                                    <h6 ><b> <%= ch[0] %></b>: <%= ch[1] %></h6>
+                                  <% end %>
+                                <h5 class ="text-right"><b><i><%= @product.variants.first.prices.first.value %>руб-</i></b></h5>
+                                
+                              </div>
+                              <%= form_for @cart_item, remote: true do |f| %>
+                                    <div class="input-group">
+                                        <% ku = @product.extract_qu_db %>
+                                          <%= f.number_field :quantity, value:  ku , class: "input-group-field", min:  ku, step:  ku  %>
+                                      <div class="input-group-button">
+                                        <%= f.hidden_field :variant_id, value: @product.variants.first.try(:id) %>
+                                        <%= f.hidden_field :ku, value: ku %>
+        
+                                        <%= f.submit "В корзину", class:"submit" %>
+                                      </div>
+                                    </div>
+                                  <% end %>
+        </div>
+        <% if @product.images.second %>
+            <div class="column small-12 medium-3" >
+                <img src= <%=asset_url(@product.images.first.try(:url)) unless @product.images.first.try(:url).blank? %> />
+            </div>
+                <div class="column small-12 medium-6" >
+                <img src= <%=asset_url(@product.images.second.try(:url)) unless @product.images.second.try(:url).blank? %> height="500"/>
+            </div>
+        <% else %>
+            <div class="column small-12 medium-9" >
+                <img src= <%=asset_url(@product.images.first.try(:url)) unless @product.images.first.try(:url).blank? %> />
+            </div>
+        <% end  %>
+    </div>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+     </button>
+</div>

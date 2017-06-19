@@ -1,0 +1,27 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: platform_development
+  pool: 5
+  username: root
+  password: h5u*fgfe
+test:
+  adapter: mysql2
+  encoding: utf8
+  database: platform_test
+  pool: 5
+  username: root
+  password: h5u*fgfe
+production:
+  adapter: mysql2
+  encoding: utf8
+  database: platform_production
+  pool: 5
+  username: root
+  password: h5u*fgfe

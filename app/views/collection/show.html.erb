@@ -1,0 +1,163 @@
+<% content_for :sidebar do %>
+  <div class="expanded row "> 
+    <div class="title-bar" data-responsive-toggle="left-menu" data-hide-for="medium">
+      <button class="menu-icon" type="button" data-toggle="left-menu"></button>
+      <div class="title-bar-title">Каталог</div>
+    </div>
+     <aside class="small-12 medium-3 large-2  columns" id="left-menu">
+        <% @start_collection = @top_collection.subcollections.first %>
+            <ul class="vertical menu" > 
+              <li  <% if @start_collection==@collection %> class = "active" <% end %> > <%= link_to "Все основные темы", @start_collection %> </li>
+            </ul>
+                <ul class="vertical menu" > 
+                <% @start_collection.subcollections.each do |col| %>
+                    <li <% if col==@collection %> class = "active" <% end %>>
+                        <%= link_to col.title, col  %>
+                        <% @level2 = col.subcollections %>
+                        <% if @level2.size>0 %>
+                            <% if col==@collection||col==@collection.parent||col==@collection.parent.parent %>
+                            <ul class="menu vertical nested  >">
+                               <% @level2.each do |col2| %>
+                                    <li <% if col2==@collection %> class = "active" <% end %>>
+                                        <%= link_to col2.title, col2  %>
+                                        <% @level3 = col2.subcollections %>
+                                        <% if @level3.size>0 %>
+                                            <% if col2==@collection||col2==@collection.parent %>
+                                                <ul class="menu vertical nested ">
+                                                    <% @level3.each do |col3| %>
+                                                        <li <% if col3==@collection %> class = "active" <% end %>>
+                                                             <%= link_to col3.title, col3  %>
+                                                        </li>
+                                                    <% end %>
+                                                </ul>
+                                            <% end %>
+                                        <% end %>
+                                    </li>
+                              <% end %>
+                            </ul>
+                            <% end %>
+                        <% end %>
+                    </li>                           
+        <% end %>
+    </aside>
+
+<% end %>
+<div class="small-12 medium-9 large-10 columns">
+         
+  
+    <ul class="accordion " data-accordion data-allow-all-closed="true">
+            <li class="accordion-item is-active" data-accordion-item>
+                <a href="#" class="accordion-title hide-for-medium">Фильтр</a>
+                <div class="accordion-content " data-tab-content>
+
+                    <div class= "expanded row">
+                        <%= form_tag params[:path], method: "get" do %>
+
+                                 <%  p_ids = @collection.product_ids %>
+                                <% @properties.each_with_index do |prop,j| %>
+                    
+                                    <div class="column small-6 medium-4 large-2 end ">
+                                          <select name="characteristics[]" onchange="$(this).closest('form').submit();">
+                                                  <option value=""><%= prop[:title] %></option>
+                                                <% prop[:characteristics].each_with_index do |ch,i| %>
+                                                   <option value="<%= ch[0] %>"  <% if params[:characteristics].try(:[],j) == ch[0].to_s %>selected <% end %> ><%= ch[0] %> (<%= ch[1] %>)</option>
+                                            
+                                                <% end %>
+                    
+                                          </select>
+                                    </div>
+                    
+                                <% end %>
+                        <div class="column small-6 medium-4 large-2 end ">
+
+                                <select name="per_page" onchange="$(this).closest('form').submit();">
+                                    <option value="" >Товаров на странице</option>
+                                    <option value="36"  <% if params[:per_page] == "36" %>selected <% end %> >36</option>
+                                    <option value="72"  <% if params[:per_page] == "72" %>selected <% end %> >72</option>
+                                    <option value="108"  <% if params[:per_page] == "108" %>selected <% end %> >108</option>
+                                </select>
+                        </div>
+                        
+                    <% end %>
+
+                        <div class="column small-6 medium-4 large-2 end ">
+                            <button class="hollow button" onclick="location.href='<%= @start_collection.permalink %>'" >Сбросить Фильтр</button>
+                         </div>
+                    </div>
+                    
+            </div>
+        </li>
+    </ul>
+    
+                <div class= "expanded row">
+                    <div class="column small-12 medium-12 ">
+                
+                        <%= paginate @products, window: 2, params: {controller: 'collection', action: 'show'} %>
+                    </div>
+<!--                <div class="column medium-2 hide-for-small-only ">
+   
+                       <select>
+                            <option value=""  selected>Товаров на странице</option>
+                            <option value="36"  >36</option>
+                            <option value="72"  >72</option>
+                            <option value="108"  >108</option>
+                        </select>
+                    </div>-->
+                </div>
+
+    
+    <div class= "expanded row small-up-1 medium-up-4 large-up-6 " > 
+        <% @products.each do |pr| %>
+           
+                  <div class="column column-block ">
+    
+                    <div class="card " >
+                      <div class="card-divider ">
+                        <center><%= link_to pr.title, pr, method: :get, remote: true, "data-open": "productModal" %> </center>
+                      </div>
+                        <center>
+                            <%= link_to  pr, method: :get, remote: true, "data-open": "productModal"   do %>                
+                            <img data-interchange='[<%= asset_path(pr.images.first.try(:url)) unless pr.images.first.try(:url).blank?%>, small], 
+                                                    [<%= asset_path(pr.images.first.try(:thumb_url)) unless pr.images.first.try(:thumb_url).blank?%>, medium]'>
+                             <% end %>
+                          <p class =" center "><b><%= pr.variants.first.sku %></b></p>
+                        </center>
+                        <div class="card-divider">
+                         <% @np.select {|v| v[0]==pr.id}.each do |ch| %>
+                            <h6 ><b> <%= ch[1] %></b>: <%= ch[2] %></h6>
+                          <% end %>
+                        <h5 class ="text-right"><b><i><%= pr.variants.first.prices.first.value %>руб-</i></b></h5>
+                        
+                      </div>
+                      <%= form_for @cart_item, remote: true do |f| %>
+                            <div class="input-group">
+                                <% ku = pr.extract_qu_array(@np) %>
+                                  <%= f.number_field :quantity, value:  ku , class: "input-group-field", min:  ku, step:  ku  %>
+                              <div class="input-group-button">
+                                <%= f.hidden_field :variant_id, value: pr.variants.first.try(:id) %>
+                                <%= f.hidden_field :ku, value: ku %>
+
+                                <%= f.submit "В корзину", class:"submit" %>
+                              </div>
+                            </div>
+                          <% end %>
+                    </div>
+                      
+                    
+                </div>
+        <% end %>
+    </div>
+    
+    <div class= "expanded row">
+        <div class="column small-12 medium-12 ">
+    
+            <%= paginate @products, window: 2, params: {controller: 'collection', action: 'show'} %>
+        </div>
+
+    </div>
+
+
+</div>
+<div class="reveal large" id="productModal" data-reveal>
+  
+</div>

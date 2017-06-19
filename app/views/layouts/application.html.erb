@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+
+    <%= javascript_include_tag :modernizr %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <script>
+      $(document).foundation();
+    </script> 
+    
+    <div class="expanded row ">
+    <span class=" float-right">
+      <i class="fi-check"></i>
+       <h5 class="cart-text"><%= render 'layouts/cart_text' %></h5>
+      </span>  
+    </div>
+    <div class="expanded row "> 
+
+        <div class="top-bar " id= "top-menu">
+          <div class="top-bar-left">
+            <div class="stacked-for-small button-group secondary ">
+                    <%= link_to "Главная" ,'/index',class:"button" %>
+                    <%= link_to "Каталог","/collection/"+@top_collection.subcollections.first.permalink,class:"button" %>
+                    <%= link_to  "Новости",'/blog/index',class:"button" %>
+                    <%= link_to  "Клиентам" ,'/page/klientam',class:"button"%>
+                    <%= link_to  "Личный Кабинет" ,'/client_account/show',class:"button" %>
+      <hr class = "show-for-small-only">
+             </div>
+          </div>
+          <div class="top-bar-right">
+            <ul class="menu float-right">
+              <li><input type="search" placeholder="Поиск"></li>
+              <li><button type="button" class="button">Искать</button></li>
+            </ul>
+          </div>
+        </div>
+    </div>
+        <br>
+        
+  <div class="expanded row "> 
+      
+
+       <%= yield :sidebar %>  
+        <%= yield %>
+  
+  </div>
+
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<% content_for :sidebar do %>
+  <div class="expanded row "> 
+    <div class="title-bar" data-responsive-toggle="left-menu" data-hide-for="medium">
+      <button class="menu-icon" type="button" data-toggle="left-menu"></button>
+      <div class="title-bar-title">Каталог</div>
+    </div>
+    <aside class="small-12 medium-3 large-2  columns" id="left-menu">
+        <% @start_collection = @top_collection.subcollections.first %>
+            <ul class="vertical menu" > 
+              <li  <% if @start_collection==@collection %> class = "active" <% end %> > <%= link_to "Все основные темы", @start_collection %> </li>
+            </ul>
+                <ul class="vertical menu" > 
+                <% @start_collection.subcollections.each do |col| %>
+                    <li <% if col==@collection %> class = "active" <% end %>>
+                        <%= link_to col.title, col  %>
+                        <% @level2 = col.subcollections %>
+                        <% if @level2.size>0 %>
+                            <% if col==@collection||col==@collection.parent %>
+                            <ul class="menu vertical nested  >">
+                               <% @level2.each do |col2| %>
+                                    <li <% if col2==@collection %> class = "active" <% end %>>
+                                        <%= link_to col2.title, col2  %>
+                                        <% @level3 = col2.subcollections %>
+                                        <% if @level3.size>0 %>
+                                            <ul class="menu vertical nested ">
+                                                <% @level2.each do |col3| %>
+                                                    <li <% if col3==@collection %> class = "active" <% end %>>
+                                                         <%= link_to col3.title, col3  %>
+                                                    </li>
+                                                <% end %>
+                                            </ul>
+                                        <% end %>
+                                    </li>
+                              <% end %>
+                            </ul>
+                            <% end %>
+                        <% end %>
+                    </li>                           
+        <% end %>
+    </aside>
+
+<% end %>
+
+<div class="row">
+<table>
+  <thead>
+    <tr>
+      <th width="250"></th>
+      <th>Наименование</th>
+      <th width="100">Количество</th>
+      <th width="80">Стоимость</th>
+      <th width="100">Сумма</th>
+      <th width="50"></th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @cart.cart_items.each do |ci| %>
+      <tr class= c_row<%= ci.id %>>
+          <%= render 'cart_items/cart_row', ci: ci %>
+      </tr>
+
+     <% end %>
+  </tbody>
+  
+</table>
+
+<div class="expanded row ">
+    <span class=" float-right">
+      <i class="fi-check"></i>
+       <h5 class="cart-text"><%= render 'layouts/cart_text' %></h5>
+      </span>  
+          <div class="expanded row ">
+                <%= link_to "Очистить корзину", CartItem.new, { data: { confirm: "Вы уверены что хотите очистить корзину?" }, method: :delete, class: "btn btn-danger" }%>
+        </div>
+    </div>
+
+</div>

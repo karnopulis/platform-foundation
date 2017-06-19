@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hidden: false
+  parent: 1
+  position: 1
+  sort: 1
+  title: MyString
+  permalink: MyString
+
+two:
+  hidden: false
+  parent: 1
+  position: 1
+  sort: 1
+  title: MyString
+  permalink: MyString

@@ -1,0 +1,19 @@
+              <td><img src = <%= asset_url(ci.variant.product.images.first.try(:thumb_url)) unless ci.variant.product.images.first.try(:thumb_url).blank? %>> </td>  
+              <td><%=ci.variant.product.title %></td>
+              <td>
+                  <%= ci.ku %>
+                  <%= form_for ci, remote: true, method: :put do |f| %>
+                                  <%= f.number_field :quantity, value:  ci.quantity , class: "input-group-field", min:  ci.ku || 1 , step:  ci.ku || 1  %>
+                                <%= f.hidden_field :variant_id, value: ci.variant.try(:id) %>
+                                 <%= f.submit "пересчитать", class:"submit" %>
+
+                 <% end %>
+              </td>
+              <% price = ci.variant.prices.first.try(:value) %>
+              <td><%= price%> руб</td>
+              <td><%= price* ci.quantity%> руб</td>
+              <td>
+
+                  <%= link_to "Delete", ci, { data: { confirm: "Вы уверены что хотите удалить'#{ci.variant.product.title}'из корзины?" }, method: :delete, remote: true, class: "btn btn-danger" } %>
+
+              </td>
