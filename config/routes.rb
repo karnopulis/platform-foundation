@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
 
 
+
+
   get 'admin/categories'            =>'api#fake'
   post 'api/:model/create_bulk'   =>'api#create_bulk'
   put 'api/:model/update_bulk'    =>'api#update_bulk'
