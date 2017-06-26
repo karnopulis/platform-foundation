@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170609101647) do
+ActiveRecord::Schema.define(version: 20170621110716) do
 
   create_table "cart_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "variant_id"
@@ -74,6 +74,14 @@ ActiveRecord::Schema.define(version: 20170609101647) do
     t.integer  "size"
     t.index ["product_id", "position"], name: "index_images_on_product_id_and_position", unique: true, using: :btree
     t.index ["product_id"], name: "index_images_on_product_id", using: :btree
+  end
+
+  create_table "news", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "title"
+    t.text     "brief",      limit: 65535
+    t.text     "text",       limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "prices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

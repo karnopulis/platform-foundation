@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 
 
-
-
-
+  namespace :admin do
+    resources :news
+  end
   get 'admin/categories'            =>'api#fake'
   post 'api/:model/create_bulk'   =>'api#create_bulk'
   put 'api/:model/update_bulk'    =>'api#update_bulk'
@@ -28,9 +28,8 @@ Rails.application.routes.draw do
 
   get 'page/:name' => 'page#show'
 
-  get 'blog/index' => 'blog#index'
-  get 'blog' => 'blog#index'
-  get 'blog/show/:id' => 'blog#show'
+    resources :news, only: [:show,:index]
+
 
   get '/index' => 'main#index'
   get '' => 'main#index'

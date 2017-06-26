@@ -1,0 +1,38 @@
+<%= javascript_include_tag "//cdn.ckeditor.com/4.6.1/basic/ckeditor.js" %>
+
+<% puts news.attributes %>
+<%= form_for([:admin,news]) do |f| %>
+  <% if news.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(news.errors.count, "error") %> prohibited this news from being saved:</h2>
+
+      <ul>
+      <% news.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <h5>Заголовок </h5>
+    <%= f.text_field :title %>
+  </div>
+  <br>
+  <div class="field">
+    <h5>Анонс</h5>
+    <%= f.cktext_area :brief, ckeditor: { language: 'ru',height: "200pt" } %>
+  </div>
+<br>
+  <div class="field">
+   <h5>Основное поле </h5>
+    <%= f.cktext_area :text, ckeditor: { language: 'ru',height: "700pt"} %>
+  </div>
+  <br>
+
+  <div class="actions">
+    <br>
+    <%= f.submit  "Обновить новость", :class => "button" %>
+  </div>
+  
+<% end %>

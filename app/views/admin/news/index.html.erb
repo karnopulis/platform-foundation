@@ -1,0 +1,35 @@
+
+
+<p id="notice"><%= notice %></p>
+
+<h2>Новости</h2>
+
+    <% @news.each do |news| %>
+    <div class="card" >
+      <div class="card-divider">
+       <%= news.title %>
+      </div>
+      <div class="card-divider">
+        <%= raw news.brief %>
+      </div>
+      <div class="card-section">
+        <%= raw news.text %>
+      </div>
+      <div class="card-divider">
+        <ul class="menu align-right">
+          <li><%= link_to 'Удалить', admin_news_path(news), method: :delete, data: { confirm: 'Вы уверены' } %></li>
+
+          <li><%= link_to 'Редактировать', edit_admin_news_path(news) %></li>
+        </ul>
+       
+        
+        
+      </div>
+    </div>
+
+    <% end %>
+
+
+<br>
+
+<%= link_to 'New News', new_admin_news_path %>

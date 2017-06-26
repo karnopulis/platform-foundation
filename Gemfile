@@ -30,6 +30,8 @@ gem 'rmagick'
 gem 'foundation-rails'
 gem 'modernizr-rails'
 gem 'iconv'
+gem 'ckeditor'
+
 
 
 # Use ActiveModel has_secure_password

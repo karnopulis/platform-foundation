@@ -8,7 +8,7 @@ class Image < ApplicationRecord
         i =Image.new(args)
         i.filename = i.original_url.split("/").last
         i.getImage
-        i.save
+#        i.save
         return i
     end
     
@@ -48,6 +48,7 @@ class Image < ApplicationRecord
         self.thumb_url = "products/"+prefix+"/thumb_"+self.filename
         base.write("public/products/"+prefix+"/base_"+self.filename)
         self.url = "products/"+prefix+"/base_"+self.filename
+        self.save
     end
     
     def get_csv_from_ftp(uri,filename,prefix)

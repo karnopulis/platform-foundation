@@ -1,0 +1,29 @@
+<div class="expanded row "> 
+    
+<%= render 'last_news' %>
+
+<p id="notice"><%= notice %></p>
+
+<div class="card" >
+        <div class="card-divider">
+         <%= @news.title %>
+        </div>
+        <div class="card-divider">
+          <%= raw @news.brief %>
+        </div>
+        <div class="card-section">
+          <%= raw @news.text %>
+        </div>
+        <div class="card-divider">
+          <ul class="menu align-right">
+  
+            <li><%= link_to 'К списку новостей', news_index_path %></li>
+          </ul>
+         
+          
+          
+        </div>
+      </div>
+
+
+</div>

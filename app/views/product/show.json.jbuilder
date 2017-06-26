@@ -36,6 +36,7 @@
                         json.position ei.position
                         json.filename ei.filename
                         json.url ei.url
+                        json.size ei.size
                         json.original_url ei.original_url
                         json.thumb_url ei.thumb_url
                     end
