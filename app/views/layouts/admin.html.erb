@@ -19,10 +19,15 @@
     </script> 
     
     <div class="expanded row ">
-    <span class=" float-right">
-      <i class="fi-check"></i>
-       <h5 class="cart-text"><%= render 'layouts/cart_text' %></h5>
-      </span>  
+     <% if admin_admin_signed_in? %>
+      <li>
+      <%= link_to('Logout', destroy_admin_admin_session_path, method: :delete) %>        
+      </li>
+    <% else %>
+      <li>
+      <%= link_to('Login', new_admin_admin_session_path)  %>  
+      </li>
+    <% end %> 
     </div>
     <div class="expanded row "> 
 

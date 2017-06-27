@@ -1,4 +1,17 @@
 Rails.application.configure do
+  config.action_mailer.default_url_options = { :host => 'platform-foundation-karnopulis.c9users.io:8080' }
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+  address: 'mail2.mirpoz.ru',
+  port: 10025,
+  openssl_verify_mode: 'none',
+#  domain: ENV[“GMAIL_DOMAIN”],
+  authentication: nil,
+#  enable_starttls_auto: true,
+#  user_name: "admin",
+#  password: "teleport"
+  }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -27,7 +40,7 @@ Rails.application.configure do
   end
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 

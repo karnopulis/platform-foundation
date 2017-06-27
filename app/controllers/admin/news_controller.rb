@@ -1,5 +1,7 @@
 class Admin::NewsController < Admin::BaseController
   before_action :set_news, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_admin_admin!
+
 #  layout "admin"
   # GET /news
   # GET /news.json
