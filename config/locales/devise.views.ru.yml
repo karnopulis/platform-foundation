@@ -1,4 +1,10 @@
 ru:
+  layouts:
+    admin:
+      new: "Добавить администратора"
+      logout: "Выйти"
+      Change_your_password: "Изменить пароль"
+
   activerecord:
     attributes:
       user:
@@ -11,6 +17,19 @@ ru:
         unlock_token: "Токен разблокировки"
     models:
       user: "Пользователь"
+      admin: "Администратор"
+    errors:
+      models:
+        admin:
+          attributes:
+            current_password:
+              blank: "Текущий пароль не указан"
+              invalid: "Указан неверный текущий пароль"
+            password_confirmation: 
+              confirmation: "Пароли не совпадают"
+            password: 
+
+              too_short: "Пароль слишком короткий (минимум  %{count} символов)"
   admin:
     confirmations:
       confirmed: "Ваш адрес эл. почты успешно подтвержден."

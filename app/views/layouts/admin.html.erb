@@ -19,26 +19,73 @@
     </script> 
     
     <div class="expanded row ">
-     <% if admin_admin_signed_in? %>
-      <li>
-      <%= link_to('Logout', destroy_admin_admin_session_path, method: :delete) %>        
-      </li>
-    <% else %>
-      <li>
-      <%= link_to('Login', new_admin_admin_session_path)  %>  
-      </li>
-    <% end %> 
+      <div class="expanded row "> 
+
+        <div class="top-bar " id= "top-menu">
+          <div class="top-bar-left">
+            <div class="stacked-for-small button-group secondary ">
+                   
+                <hr class = "show-for-small-only">
+             </div>
+          </div>
+          <div class="top-bar-right">
+            <ul class="dropdown menu" data-dropdown-menu>
+              <% if admin_signed_in? %>
+                <li>
+                <a href="#"><%= current_admin.email %></a>
+                <ul class="menu">
+                  <li>
+                    <%= link_to t('.Change_your_password'), edit_admin_registration_path %>
+                  </li>
+                  <li>
+                    <%= link_to t('.logout'), destroy_admin_session_path, method: :delete %>        
+                  </li>
+
+               </ul>
+                  </li>
+            
+            </ul>
+                    <% else %>
+                      <li>
+                      <%= link_to('Login', new_admin_session_path)  %>  
+                      </li>
+                    <% end %> 
+    
+          </div>
+        </div>
+    </div>
+     
     </div>
     <div class="expanded row "> 
-
-        <br>
-        
-  <div class="expanded row "> 
+<aside class="small-12 medium-2 large-1  columns" id="left-menu">
+    
+  <ul class="vertical menu accordion-menu" data-accordion-menu data-submenu-toggle="true">
+    <li>
+      <a href="#">Новости</a>
+        <ul class="menu vertical nested">
+              <li><%= link_to "Список", admin_news_index_path %></li>
+              <li><%= link_to "Добавить", new_admin_news_path %></li>
+        </ul>
+    </li>
+    <li>
+      <a href="#">Администраторы</a>
+            
+        <ul class="menu vertical nested">
+              <li><%= link_to "Список", admin_admins_path %></li>
+              <li><%= link_to "Добавить", new_admin_registration_path %></li>
+        </ul>
+    </li>
+          <li><a href="#">Item 1B</a></li>
+          <li><a href="#">Item 1C</a></li>
+        </ul>
+    </li>
       
+  </ul>
+</aside>
+<div class="small-12 medium-10 large-11 columns">
 
-       <%= yield :sidebar %>  
         <%= yield %>
-  
+</div>  
   </div>
 
   </body>

@@ -1,11 +1,20 @@
 Rails.application.routes.draw do
+  devise_scope :admin do
+      get 'admin/admins', to: 'admin/base#index'
+      get 'admin/admins/:id/edit', to: 'admin/registrations#edit'
+      put 'admin/:id', to: 'admin/registrations#update'
+      patch 'admin/:id', to: 'admin/registrations#update'
+      delete 'admin/admins/:id', to: 'admin/registrations#remove'
 
+  devise_for :admin,  controllers: { registrations: "admin/registrations",sessions: "admin/sessions" ,passwords: "admin/passwords",confirmations: "admin/confirmations"  }
 
-  namespace :admin do
-    devise_for :admins
-    root to: "admin/news#index"
-    resources :news
   end
+   namespace :admin do
+     resources :news
+   end
+  # devise_scope :admin do
+  #   get 'login', to: 'admin/sessions#new'
+  # end
   get 'admin/categories'            =>'api#fake'
   post 'api/:model/create_bulk'   =>'api#create_bulk'
   put 'api/:model/update_bulk'    =>'api#update_bulk'

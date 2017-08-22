@@ -30,7 +30,7 @@
           <div class="top-bar-left">
             <div class="stacked-for-small button-group secondary ">
                     <%= link_to "Главная" ,'/index',class:"button" %>
-                    <%= link_to "Каталог","/collection/"+@top_collection.subcollections.first.permalink,class:"button" %>
+                    <%= link_to "Каталог","/collection/"+Collection.first.subcollections.first.permalink,class:"button" %>
                     <%= link_to  "Новости" ,news_index_path , class:"button" %>
                     <%= link_to  "Клиентам" ,'/page/klientam',class:"button"%>
                     <%= link_to  "Личный Кабинет" ,'/client_account/show',class:"button" %>
