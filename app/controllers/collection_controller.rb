@@ -1,3 +1,4 @@
+#1
 class CollectionController < ApplicationController
 FILTER= ["Формат","Отделка","текст","Код цены"]
 BRIEF =["Формат","Отделка","Код цены","конструктив","Размер","Количество в упаковке"]
