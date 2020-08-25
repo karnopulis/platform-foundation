@@ -9,7 +9,7 @@ development:
   encoding: utf8
   database: platform_development
   pool: 5
-  username: root
+  username: sed
   password: h5u*fgfe
 test:
   adapter: mysql2
@@ -23,5 +23,6 @@ production:
   encoding: utf8
   database: platform_production
   pool: 5
-  username: root
+  username: sed
   password: h5u*fgfe
+

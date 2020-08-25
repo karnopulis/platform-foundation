@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20170626143354) do
 
-  create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20170626143354) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "cart_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "cart_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "variant_id"
     t.integer  "quantity"
     t.datetime "created_at", null: false
@@ -45,14 +45,14 @@ ActiveRecord::Schema.define(version: 20170626143354) do
     t.index ["variant_id"], name: "index_cart_items_on_variant_id", using: :btree
   end
 
-  create_table "carts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "carts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "total"
     t.float    "total_price", limit: 24
   end
 
-  create_table "characteristics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "characteristics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "product_id",  null: false
     t.integer  "property_id", null: false
     t.string   "title"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20170626143354) do
     t.index ["property_id"], name: "index_characteristics_on_property_id", using: :btree
   end
 
-  create_table "collections", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "collections", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.boolean  "hidden"
     t.integer  "parent"
     t.integer  "position"
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 20170626143354) do
     t.index ["title", "parent"], name: "index_collections_on_title_and_parent", unique: true, using: :btree
   end
 
-  create_table "collects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "collects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "product_id",    null: false
     t.integer  "collection_id", null: false
     t.integer  "position"
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 20170626143354) do
     t.index ["product_id"], name: "index_collects_on_product_id", using: :btree
   end
 
-  create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "position"
     t.string   "url"
     t.string   "original_url"
@@ -93,12 +93,11 @@ ActiveRecord::Schema.define(version: 20170626143354) do
     t.integer  "product_id",   null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.integer  "size"
     t.index ["product_id", "position"], name: "index_images_on_product_id_and_position", unique: true, using: :btree
     t.index ["product_id"], name: "index_images_on_product_id", using: :btree
   end
 
-  create_table "news", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "news", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
     t.text     "brief",      limit: 65535
     t.text     "text",       limit: 65535
@@ -106,18 +105,17 @@ ActiveRecord::Schema.define(version: 20170626143354) do
     t.datetime "updated_at",               null: false
   end
 
-  create_table "prices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "prices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.float    "value",      limit: 24
     t.integer  "variant_id"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
-    t.string   "type"
     t.string   "name"
     t.index ["variant_id", "name"], name: "index_prices_on_variant_id_and_name", unique: true, using: :btree
     t.index ["variant_id"], name: "index_prices_on_variant_id", using: :btree
   end
 
-  create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.boolean  "hidden"
     t.float    "sort_weight", limit: 24
     t.string   "title"
@@ -126,7 +124,7 @@ ActiveRecord::Schema.define(version: 20170626143354) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "properties", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "properties", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "title"
     t.string   "permalink"
     t.integer  "position"
@@ -135,7 +133,7 @@ ActiveRecord::Schema.define(version: 20170626143354) do
     t.index ["title"], name: "index_properties_on_title", unique: true, using: :btree
   end
 
-  create_table "variants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "variants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "sku"
     t.integer  "quantity"
     t.integer  "product_id"
@@ -148,4 +146,9 @@ ActiveRecord::Schema.define(version: 20170626143354) do
   add_foreign_key "cart_items", "variants"
   add_foreign_key "characteristics", "products"
   add_foreign_key "characteristics", "properties"
+  add_foreign_key "collects", "collections"
+  add_foreign_key "collects", "products"
+  add_foreign_key "images", "products"
+  add_foreign_key "prices", "variants"
+  add_foreign_key "variants", "products"
 end

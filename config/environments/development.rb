@@ -1,17 +1,14 @@
 Rails.application.configure do
   config.action_mailer.default_url_options = { :host => 'platform-foundation-karnopulis.c9users.io:8080' }
   config.action_mailer.delivery_method = :smtp
-
   config.action_mailer.smtp_settings = {
-  address: 'mail2.mirpoz.ru',
-  port: 10025,
-  openssl_verify_mode: 'none',
-#  domain: ENV[“GMAIL_DOMAIN”],
-  authentication: nil,
-#  enable_starttls_auto: true,
-#  user_name: "admin",
-#  password: "teleport"
-  }
+  address:              'smtp.gmail.com',
+  port:                 587,
+  domain:               'pro-dai.pro',
+  user_name:            'karnopulus',
+  password:             'drebedengi',
+  authentication:       'plain',
+  enable_starttls_auto: true }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
